@@ -17,6 +17,25 @@ class LoginViewController: UIViewController {
         self.view.backgroundColor = UIColor.green
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        let url = "https://postman-echo.com/post"
+        let params:[String: Any] = [
+            "foo":1,
+            "so": 2
+        ]
+        
+        print("hi?")
+        HTTPAPI.instance().call(url: url, params: params, method: .POST, success: { (data, response, err) in
+            print("DATA IS \(data)")
+            print("JSON String: \(String(data: data, encoding: .utf8)!)")
+
+        }) { (data, response, err) in
+            print("error")
+        }
+    }
+    
 
 }
 
