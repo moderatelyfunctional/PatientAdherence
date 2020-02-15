@@ -1,5 +1,5 @@
 //
-//  PatientLabel.swift
+//  PLabel.swift
 //  PatientAdherence
 //
 //  Created by Jing Lin on 2/15/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PatientLabel: UILabel {
+class PLabel: UILabel {
     
     init(font: UIFont, textColor: UIColor) {
         super.init(frame: .zero)

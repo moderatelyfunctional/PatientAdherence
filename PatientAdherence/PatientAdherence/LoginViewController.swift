@@ -26,7 +26,6 @@ class LoginViewController: UIViewController {
             "so": 2
         ]
         
-        print("hi?")
         HTTPAPI.instance().call(url: url, params: params, method: .POST, success: { (data, response, err) in
             print("DATA IS \(data)")
             print("JSON String: \(String(data: data, encoding: .utf8)!)")
