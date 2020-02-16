@@ -20,15 +20,15 @@ struct URLS {
 }
 
 struct FakeData {
-    static let headers:[String] = ["symptoms", "causes", "treatments"]
-    static let diabetes:[String:[String]] = [
+    static var headers:[String] = ["symptoms", "causes", "treatments"]
+    static var diabetes:[String:[String]] = [
         "symptoms": ["a", "b", "c", "d", "e"],
         "causes": ["b", "d", "e", "f"],
         "treatments": ["a", "b"]
     ]
-    static let diabetesProgress:[String:[Int]] = [
+    static var diabetesProgress:[String:[Int]] = [
         "symptoms": [0, 0, 0, 0, 0],
         "causes": [0, 0, 0, 0],
-        "treatments": [1, 0]
+        "treatments": [0, 0]
     ]
 }

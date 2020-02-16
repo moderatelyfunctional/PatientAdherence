@@ -18,6 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         if let windowScene = scene as? UIWindowScene {
 //            let mainViewController = LoginViewController()
+//            let mainViewController = PictureViewController(name: "Carine")
             let mainViewController = UINavigationController(rootViewController: QuestionsListViewController())
             self.window = UIWindow(frame: UIScreen.main.bounds)
             self.window?.windowScene = windowScene
