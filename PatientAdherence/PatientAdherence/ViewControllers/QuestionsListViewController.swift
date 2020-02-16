@@ -15,8 +15,6 @@ class QuestionsListViewController: UIViewController {
     init() {
         super.init(nibName: nil, bundle: nil)
         self.title = "Education Academy"
-
-        self.view.backgroundColor = UIColor.white
     }
     
     required init?(coder: NSCoder) {
@@ -30,6 +28,8 @@ class QuestionsListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = UIColor.white
+
         self.questionsTableView.delegate = self
         
         self.view.addSubview(self.questionsTableView)
@@ -46,9 +46,9 @@ extension QuestionsListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let index = indexPath.item
         let detailTitle = FakeData.headers[index]
-        let 
+        let specificViewController = SpecificQuestionsViewController(detailTitle: detailTitle)
         
-        self.navigationController?.pushViewController(, animated: <#T##Bool#>)
+        self.navigationController?.pushViewController(specificViewController, animated: true)
     }
     
 }

@@ -17,6 +17,8 @@ class QuestionsTableView: UITableView, UITableViewDataSource {
         
         self.translatesAutoresizingMaskIntoConstraints = false
         
+        self.backgroundColor = UIColor.white
+        
         self.separatorStyle = .none
         self.dataSource = self
     }

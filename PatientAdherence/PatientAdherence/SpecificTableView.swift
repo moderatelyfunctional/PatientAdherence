@@ -30,7 +30,7 @@ class SpecificTableView: UITableView, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return QACell(name: self.data[indexPath.item])
+        return QACell(questionText: self.data[indexPath.item])
 
     }
 
