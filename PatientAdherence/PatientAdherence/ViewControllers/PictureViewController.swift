@@ -70,7 +70,8 @@ class PictureViewController: UIViewController {
             let elementPipe = element.components(separatedBy: "|")
             let elementSubelement = elementPipe[0].components(separatedBy: "/")
             
-            let key = elementSubelement[0].components(separatedBy: "_").joined(separator: " ")
+            let key = elementSubelement[0].components(separatedBy: "_").joined(separator: " ").capitalized
+            print(key)
             
             if !headers.contains(key) {
                 headers.append(key)
@@ -93,18 +94,19 @@ class PictureViewController: UIViewController {
     }
     
     @objc func switchToQuestions() {
+
         HTTPAPI.instance().call(url: URLS.diabetes, params: nil, method: .GET, success: { (data, response, err) in
             let stringData = String(data: data, encoding: .utf8)!
             self.processDiabetesData(stringData: stringData)
+            
+            DispatchQueue.main.async {
+                let questionsViewController = UINavigationController(rootViewController: QuestionsListViewController())
+                questionsViewController.modalPresentationStyle = .fullScreen
+                self.present(questionsViewController, animated: true, completion: nil)
+            }
         }) { (data, response, err) in
-            print("error")
         }
-
-        let questionsViewController = UINavigationController(rootViewController: QuestionsListViewController())
-        questionsViewController.modalPresentationStyle = .fullScreen
-        self.present(questionsViewController, animated: true, completion: nil)
     }
-
 }
 
 extension PictureViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {

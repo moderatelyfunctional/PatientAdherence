@@ -37,7 +37,8 @@ class QuestionsListViewController: UIViewController {
     }
     
     func addConstraints() {
-        self.view.addConstraints(PConstraint.paddingPositionConstraints(view: self.questionsTableView, sides: [.left, .top, .right, .bottom], padding: 0))
+        self.view.addConstraints(PConstraint.paddingPositionConstraints(view: self.questionsTableView, sides: [.left, .top, .right], padding: 0))
+        self.view.addConstraint(PConstraint.paddingPositionConstraint(view: self.questionsTableView, side: .bottom, padding: 30))
     }
 }
 

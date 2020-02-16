@@ -29,7 +29,7 @@ class QuestionCell: UITableViewCell {
         } else {
             self.percentage.textColor = Colors.grey
         }
-        self.percentage.text = String(format: "%.1f", percentage)
+        self.percentage.text = String(format: "%.0f%%", percentage)
         
         self.contentView.addSubview(self.nameLabel)
         self.contentView.addSubview(self.percentage)
