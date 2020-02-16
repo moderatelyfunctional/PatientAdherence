@@ -8,7 +8,7 @@ import json
 
 app = Flask(__name__)
 
-@app.route('/similarity', method = ["GET", "POST"])
+@app.route('/similarity', methods = ["GET", "POST"])
 def sim_func():
     stemmer = nltk.stem.porter.PorterStemmer()
     remove_punctuation_map = dict((ord(char), None) for char in string.punctuation)
