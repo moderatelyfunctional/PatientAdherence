@@ -10,7 +10,7 @@ import UIKit
 
 class PointsViewController: UIViewController {
     
-//    let label = 
+    let label = PLabel(font: UIFont.systemFont(ofSize: 20), text: "What rewards would you like to cash in your points for?", alignment: .center, textColor: UIColor.white)
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -25,6 +25,11 @@ class PointsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.addSubview(self.label)
+        addConstraints()
+    }
+    
+    func addConstraints() {
         
     }
     

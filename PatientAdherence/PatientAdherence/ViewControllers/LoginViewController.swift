@@ -10,9 +10,10 @@ import UIKit
 
 class LoginViewController: UIViewController {
 
+    let glucoseIcon = PImageView(imgName: "logo")
     let titleLabel = PLabel(
-        font: UIFont.systemFont(ofSize: 40.0),
-        text: "Glucose Guardian",
+        font: UIFont.systemFont(ofSize: 30.0),
+        text: "Glucose\nGuardian",
         alignment: .left,
         textColor: UIColor.white)
     let emailField = PTextField(color: UIColor.white, placeholderText: "email address")
@@ -28,6 +29,7 @@ class LoginViewController: UIViewController {
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard)))
         
         self.view.backgroundColor = Colors.base
+        self.view.addSubview(self.glucoseIcon)
         self.view.addSubview(self.titleLabel)
         self.view.addSubview(self.emailField)
         self.view.addSubview(self.passwordField)
@@ -37,7 +39,13 @@ class LoginViewController: UIViewController {
     }
 
     func addConstraints() {
-        self.view.addConstraints(PConstraint.paddingPositionConstraints(view: self.titleLabel, sides: [.left, .right], padding: 60))
+        self.view.addConstraints(PConstraint.squareWidthConstraints(view: self.glucoseIcon, squareRatio: 0.24))
+        self.view.addConstraint(PConstraint.equalConstraint(firstView: self.glucoseIcon, secondView: self.titleLabel, attribute: .centerY))
+        self.view.addConstraint(PConstraint.horizontalSpacingConstraint(leftView: self.glucoseIcon, rightView: self.titleLabel, spacing: 20))
+
+        self.view.addConstraint(PConstraint.paddingPositionConstraint(view: self.titleLabel, side: .left, padding: 180))
+        self.view.addConstraint(PConstraint.paddingPositionConstraint(view: self.titleLabel, side: .right, padding: 60))
+
         self.view.addConstraint(PConstraint.paddingPositionConstraint(view: self.titleLabel, side: .top, padding: 100))
         
         self.view.addConstraints(PConstraint.paddingPositionConstraints(view: self.emailField, sides: [.left, .right], padding: 60))

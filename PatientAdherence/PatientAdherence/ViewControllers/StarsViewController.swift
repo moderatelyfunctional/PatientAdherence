@@ -14,6 +14,7 @@ class StarsViewController: UIViewController {
     let pointsLabel = PLabel(font: UIFont.boldSystemFont(ofSize: 42.0), text: "", alignment: .left, textColor: UIColor.white)
     let summaryText = PLabel(font: UIFont.systemFont(ofSize: 18.0), text: "", alignment: .center, textColor: UIColor.white)
     let img:PImageView
+    let x = PButton(text: "X", titleColor: UIColor.white, backgroundColor: UIColor.clear, hasBorder: false)
     
     let right:Bool
     init(title: String, right: Bool) {
@@ -42,10 +43,14 @@ class StarsViewController: UIViewController {
         
         self.view.backgroundColor = Colors.base
         
+        self.x.isUserInteractionEnabled = true
+        self.x.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(StarsViewController.dismissView)))
+        
         self.view.addSubview(self.titleLabel)
         self.view.addSubview(self.pointsLabel)
         self.view.addSubview(self.summaryText)
         self.view.addSubview(self.img)
+        self.view.addSubview(self.x)
         addConstraints()
     }
     
@@ -62,6 +67,13 @@ class StarsViewController: UIViewController {
         self.view.addConstraint(PConstraint.horizontalAlignConstraint(firstView: self.summaryText, secondView: self.view))
         self.view.addConstraint(PConstraint.verticalSpacingConstraint(upperView: self.img, lowerView: self.summaryText, spacing: 40))
         self.view.addConstraints(PConstraint.paddingPositionConstraints(view: self.summaryText, sides: [.left, .right], padding: 60))
+        
+        self.view.addConstraint(PConstraint.paddingPositionConstraint(view: self.x, side: .top, padding: 34))
+        self.view.addConstraint(PConstraint.paddingPositionConstraint(view: self.x, side: .right, padding: 24))
+    }
+    
+    @objc func dismissView() {
+        self.dismiss(animated: true, completion: nil)
     }
     
 }

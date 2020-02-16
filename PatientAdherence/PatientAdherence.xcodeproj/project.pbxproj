@@ -25,6 +25,7 @@
 		DC76497423F997BD000FA1BC /* ProfileSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC76497323F997BD000FA1BC /* ProfileSelection.swift */; };
 		DC76497623F9A0F3000FA1BC /* PointsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC76497523F9A0F3000FA1BC /* PointsViewController.swift */; };
 		DC76497823F9A20D000FA1BC /* StarsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC76497723F9A20D000FA1BC /* StarsViewController.swift */; };
+		DC76497A23F9AA9C000FA1BC /* PointsImg.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC76497923F9AA9C000FA1BC /* PointsImg.swift */; };
 		DCC7518623F8638C00C53AAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC7518523F8638C00C53AAB /* AppDelegate.swift */; };
 		DCC7518823F8638C00C53AAB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC7518723F8638C00C53AAB /* SceneDelegate.swift */; };
 		DCC7518A23F8638C00C53AAB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC7518923F8638C00C53AAB /* LoginViewController.swift */; };
@@ -58,6 +59,7 @@
 		DC76497323F997BD000FA1BC /* ProfileSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSelection.swift; sourceTree = "<group>"; };
 		DC76497523F9A0F3000FA1BC /* PointsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsViewController.swift; sourceTree = "<group>"; };
 		DC76497723F9A20D000FA1BC /* StarsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarsViewController.swift; sourceTree = "<group>"; };
+		DC76497923F9AA9C000FA1BC /* PointsImg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsImg.swift; sourceTree = "<group>"; };
 		DCC7518223F8638C00C53AAB /* PatientAdherence.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PatientAdherence.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCC7518523F8638C00C53AAB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DCC7518723F8638C00C53AAB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 		DCC7518423F8638C00C53AAB /* PatientAdherence */ = {
 			isa = PBXGroup;
 			children = (
+				DC76497923F9AA9C000FA1BC /* PointsImg.swift */,
 				DCC7518523F8638C00C53AAB /* AppDelegate.swift */,
 				DCC7518723F8638C00C53AAB /* SceneDelegate.swift */,
 				DCC7519D23F86CE200C53AAB /* HTTPAPI.swift */,
@@ -227,6 +230,7 @@
 				DCC7519C23F86C0B00C53AAB /* PConstraint.swift in Sources */,
 				DC76497823F9A20D000FA1BC /* StarsViewController.swift in Sources */,
 				DC76495423F8C805000FA1BC /* PView.swift in Sources */,
+				DC76497A23F9AA9C000FA1BC /* PointsImg.swift in Sources */,
 				DC76496023F8FB55000FA1BC /* QuestionsListViewController.swift in Sources */,
 				DCC751AB23F8827600C53AAB /* EducateViewController.swift in Sources */,
 				DCC7518623F8638C00C53AAB /* AppDelegate.swift in Sources */,
