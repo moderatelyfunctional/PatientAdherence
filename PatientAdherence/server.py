@@ -30,6 +30,11 @@ def sim_func():
     case1json = json.dumps({"Similarity of Answers":case1})  
     return case1json
 
+if __name__ == "__main__":
+    app.debug = True
+    app.run(host='0.0.0.0')
+
+
 #Houndify sucks
 """ @app.route('/input-text')
 def getting_audio_input():
