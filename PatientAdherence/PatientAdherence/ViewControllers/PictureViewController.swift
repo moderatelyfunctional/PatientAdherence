@@ -49,10 +49,10 @@ class PictureViewController: UIViewController {
         self.view.addConstraint(PConstraint.paddingPositionConstraint(view: self.titleLabel, side: .top, padding: 100))
         
         self.view.addConstraint(PConstraint.verticalSpacingConstraint(upperView: self.titleLabel, lowerView: self.takePicture, spacing: 50))
-        self.view.addConstraints(PConstraint.squareWidthConstraints(view: self.takePicture, squareRatio: 0.6))
-        self.view.addConstraint(PConstraint.horizontalAlignConstraint(firstView: self.takePicture, secondView: self.view))
+        self.view.addConstraints(PConstraint.centerAlignConstraints(firstView: self.takePicture, secondView: self.view))
+        self.view.addConstraints(PConstraint.squareWidthConstraints(view: self.takePicture, squareRatio: 0.7))
         
-        self.view.addConstraint(PConstraint.verticalSpacingConstraint(upperView: self.takePicture, lowerView: self.submitButton, spacing: 50))
+        self.view.addConstraint(PConstraint.verticalSpacingConstraint(upperView: self.takePicture, lowerView: self.submitButton, spacing: 80))
         self.view.addConstraints(PConstraint.paddingPositionConstraints(view: self.submitButton, sides: [.left, .right], padding: 60))
         self.view.addConstraint(PConstraint.fillYConstraints(view: self.submitButton, heightRatio: 0.08))
     }
@@ -85,9 +85,6 @@ class PictureViewController: UIViewController {
             }
             
         }
-        print(dataElements)
-        print(headers)
-        
         FakeData.headers = headers
         FakeData.diabetes = dataElements
         FakeData.diabetesProgress = dataProgress

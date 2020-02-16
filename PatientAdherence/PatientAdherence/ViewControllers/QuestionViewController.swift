@@ -19,12 +19,12 @@ class QuestionViewController: UIViewController {
     let playButton = PButton(text: "Play", titleColor: UIColor.white, backgroundColor: Colors.base, hasBorder: true)
     let answerButton = PButton(text: "Answer", titleColor: UIColor.white, backgroundColor: Colors.base, hasBorder: true)
     
-    var audioSession:AVAudioSession!
-    let audioEngine = AVAudioEngine()
+//    let audioEngine = AVAudioEngine()
     let speechRecognizer = SFSpeechRecognizer()
-    var recognitionTask:SFSpeechRecognitionTask?
-    var recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
-
+    var recognitionRequest:SFSpeechURLRecognitionRequest!
+    var audioSession:AVAudioSession!
+    var audioRecorder:AVAudioRecorder!
+    var audioPlayer:AVAudioPlayer!
     
     var bestResult = ""
 //    let request = SFSpeechAudioBufferRecognitionRequest()
@@ -44,16 +44,16 @@ class QuestionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var audioSession: AVAudioSession = AVAudioSession.sharedInstance()
+        self.audioSession = AVAudioSession.sharedInstance()
         do {
-            try audioSession.setCategory(AVAudioSession.Category.playAndRecord, mode: .spokenAudio, options: .defaultToSpeaker)
-            try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
+            try self.audioSession.setCategory(AVAudioSession.Category.playAndRecord, mode: .spokenAudio, options: .defaultToSpeaker)
+            try self.audioSession.setActive(true, options: .notifyOthersOnDeactivation)
         } catch let error{
             print("audioSession properties weren't set because of an error: ", error)
         }
         
         self.playButton.addTarget(self, action: #selector(QuestionViewController.playQuestion), for: .touchUpInside)
-        self.answerButton.addTarget(self, action: #selector(QuestionViewController.recordAnswer), for: .touchUpInside)
+        self.answerButton.addTarget(self, action: #selector(QuestionViewController.recordTapped), for: .touchUpInside)
         self.view.backgroundColor = UIColor.white
         
         self.requestSpeechAuthorization()
@@ -72,6 +72,22 @@ class QuestionViewController: UIViewController {
     }
     
     @objc func playQuestion() {
+        let url = getDocumentsDirectory().appendingPathComponent("recording.m4a")
+        transcribeAudio(url: url)
+        return
+        
+        
+        let audioFilename = getDocumentsDirectory().appendingPathComponent("recording.m4a")
+        print(audioFilename)
+        
+        do {
+            try self.audioPlayer = AVAudioPlayer(contentsOf: audioFilename)
+            self.audioPlayer.play()
+        } catch {
+            print("some error")
+        }
+        return
+        
         self.audioSession = AVAudioSession.sharedInstance()
         do {
             try self.audioSession.setCategory(.playAndRecord, options: .defaultToSpeaker)
@@ -88,64 +104,76 @@ class QuestionViewController: UIViewController {
         synthesizer.speak(utterance)
     }
     
-    @objc func recordAnswer() {
-        
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
     }
-        
-    @objc func answerTapped() {
-        if self.audioEngine.isRunning {
-            self.audioEngine.stop()
-            self.audioEngine.inputNode.removeTap(onBus: 0)
-            self.recognitionRequest.endAudio()
-            self.recognitionTask?.cancel()
-            self.answerButton.setTitle("Start Answering", for: .normal)
-            print("BEST RESULT IS \(self.bestResult)")
+    
+    @objc func recordTapped() {
+        if audioRecorder == nil {
+            startRecording()
         } else {
-            recordAndRecognizeSpeech()
-            self.answerButton.setTitle("Finish Answering", for: .normal)
+            finishRecording(success: true)
+//            let url = getDocumentsDirectory().appendingPathComponent("recording.m4a")
+//            transcribeAudio(url: url)
         }
     }
     
-    func recordAndRecognizeSpeech() {
-        let audioSession = AVAudioSession.sharedInstance()
-        do {
-            try audioSession.setCategory(AVAudioSession.Category.record)
-            try audioSession.setMode(.measurement)
-            try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
-        } catch {
-            print("audioSession properties weren't set because of an error.")
-        }
+    
+    @objc func startRecording() {
+        let audioFilename = getDocumentsDirectory().appendingPathComponent("recording.m4a")
 
-        let node = self.audioEngine.inputNode
-        let recordingFormat = node.outputFormat(forBus: 0)
-        self.recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
-        node.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { buffer, _ in
-            self.recognitionRequest.append(buffer)
-        }
-        self.audioEngine.prepare()
+        let settings = [
+            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+            AVSampleRateKey: 12000,
+            AVNumberOfChannelsKey: 1,
+            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+        ]
+
         do {
-            try self.audioEngine.start()
+            self.audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
+            self.audioRecorder.delegate = self
+            self.audioRecorder.prepareToRecord()
+            self.audioRecorder.record(forDuration: 10)
+//            self.audioRecorder.record()
+
+            self.answerButton.setTitle("Finish Answering", for: .normal)
         } catch {
-            return print(error)
+            finishRecording(success: false)
         }
-        guard let recognizer = SFSpeechRecognizer() else {
-            return
+    }
+    
+    func finishRecording(success: Bool) {
+        self.audioRecorder.stop()
+        self.audioRecorder = nil
+
+        if success {
+            self.answerButton.setTitle("Start Re-Answering", for: .normal)
+        } else {
+            self.answerButton.setTitle("Start Answering", for: .normal)
+            // recording failed :(
         }
-        if !recognizer.isAvailable {
-            return
-        }
-        recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest, resultHandler: { result, error in
-            if result != nil {
-                if let result = result {
-                    let bestString = result.bestTranscription.formattedString
-                    print(bestString)
-                } else if let error = error {
-                    print(error)
-                }
+    }
+    
+    func transcribeAudio(url: URL) {
+        // create a new recognizer and point it at our audio
+        self.recognitionRequest = SFSpeechURLRecognitionRequest(url: url)
+        self.recognitionRequest.shouldReportPartialResults = true
+        
+        // start recognition!
+        self.speechRecognizer?.recognitionTask(with: self.recognitionRequest, resultHandler: { result, error in
+            if let result = result {
+                self.bestResult = result.bestTranscription.formattedString
+                print(self.bestResult)
+//                if result.isFinal {
+//                    print(result.bestTranscription.formattedString)
+//                }
+            } else {
+                print(error)
             }
         })
     }
-    
+        
     func requestSpeechAuthorization() {
         SFSpeechRecognizer.requestAuthorization { authStatus in
         }
@@ -153,8 +181,10 @@ class QuestionViewController: UIViewController {
     
 }
 
-extension QuestionViewController: SFSpeechRecognizerDelegate {
-    
-    
-    
+extension QuestionViewController: AVAudioRecorderDelegate {
+    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
+        if !flag {
+            finishRecording(success: false)
+        }
+    }
 }

@@ -23,8 +23,7 @@ class QACell: UITableViewCell {
         self.selectionStyle = .none
         self.backgroundColor = UIColor.white
         
-        self.nameLabel.text = "asdf slkf sjdf"
-//        self.nameLabel.text = self.questionText.components(separatedBy: " ")[0...5].joined(separator: " ") + "..."
+        self.nameLabel.text = self.questionText.components(separatedBy: " ")[0...5].joined(separator: " ") + "..."
         self.contentView.addSubview(self.nameLabel)
         self.contentView.addSubview(self.badge)
         addConstraints()
@@ -37,7 +36,8 @@ class QACell: UITableViewCell {
     func addConstraints() {
         self.contentView.addConstraint(PConstraint.paddingPositionConstraint(view: self.nameLabel, side: .top, padding: 30))
         self.contentView.addConstraint(PConstraint.paddingPositionConstraint(view: self.nameLabel, side: .bottom, padding: 0))
-        self.contentView.addConstraints(PConstraint.paddingPositionConstraints(view: self.nameLabel, sides: [.left, .right], padding: 120))
+        self.contentView.addConstraint(PConstraint.paddingPositionConstraint(view: self.nameLabel, side: .left, padding: 120))
+        self.contentView.addConstraint(PConstraint.paddingPositionConstraint(view: self.nameLabel, side: .right, padding: 40))
         
         self.contentView.addConstraint(PConstraint.verticalAlignConstraint(firstView: self.badge, secondView: self.nameLabel))
         self.contentView.addConstraint(PConstraint.horizontalSpacingConstraint(leftView: self.badge, rightView: self.nameLabel, spacing: 20))

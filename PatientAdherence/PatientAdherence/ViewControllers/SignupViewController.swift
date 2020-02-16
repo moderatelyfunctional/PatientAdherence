@@ -44,7 +44,7 @@ class SignupViewController: UIViewController {
         self.view.addConstraint(PConstraint.paddingPositionConstraint(view: self.titleLabel, side: .top, padding: 100))
         
         self.view.addConstraints(PConstraint.paddingPositionConstraints(view: self.nameField, sides: [.left, .right], padding: 60))
-        self.view.addConstraint(PConstraint.verticalSpacingConstraint(upperView: self.titleLabel, lowerView: self.nameField, spacing: 30))
+        self.view.addConstraint(PConstraint.verticalSpacingConstraint(upperView: self.titleLabel, lowerView: self.nameField, spacing: 70))
         self.view.addConstraint(PConstraint.fillYConstraints(view: self.nameField, heightRatio: 0.08))
         
         self.view.addConstraints(PConstraint.paddingPositionConstraints(view: self.emailField, sides: [.left, .right], padding: 60))
@@ -56,7 +56,7 @@ class SignupViewController: UIViewController {
         self.view.addConstraint(PConstraint.fillYConstraints(view: self.passwordField, heightRatio: 0.08))
         
         self.view.addConstraints(PConstraint.paddingPositionConstraints(view: self.signupButton, sides: [.left, .right], padding: 60))
-        self.view.addConstraint(PConstraint.verticalSpacingConstraint(upperView: self.passwordField, lowerView: self.signupButton, spacing: 70))
+        self.view.addConstraint(PConstraint.verticalSpacingConstraint(upperView: self.passwordField, lowerView: self.signupButton, spacing: 130))
         self.view.addConstraint(PConstraint.fillYConstraints(view: self.signupButton, heightRatio: 0.085))
 
         self.view.addConstraints(PConstraint.paddingPositionConstraints(view: self.switchButton, sides: [.left, .right], padding: 60))
