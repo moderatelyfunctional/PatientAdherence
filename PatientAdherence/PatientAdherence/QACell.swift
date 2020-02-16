@@ -37,7 +37,7 @@ class QACell: UITableViewCell {
     func addConstraints() {
         self.contentView.addConstraint(PConstraint.paddingPositionConstraint(view: self.nameLabel, side: .top, padding: 30))
         self.contentView.addConstraint(PConstraint.paddingPositionConstraint(view: self.nameLabel, side: .bottom, padding: 0))
-        self.contentView.addConstraints(PConstraint.paddingPositionConstraints(view: self.nameLabel, sides: [.left, .right], padding: 100))
+        self.contentView.addConstraints(PConstraint.paddingPositionConstraints(view: self.nameLabel, sides: [.left, .right], padding: 120))
         
         self.contentView.addConstraint(PConstraint.verticalAlignConstraint(firstView: self.badge, secondView: self.nameLabel))
         self.contentView.addConstraint(PConstraint.horizontalSpacingConstraint(leftView: self.badge, rightView: self.nameLabel, spacing: 20))

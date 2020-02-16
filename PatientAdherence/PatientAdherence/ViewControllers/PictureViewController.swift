@@ -70,7 +70,8 @@ class PictureViewController: UIViewController {
             let elementPipe = element.components(separatedBy: "|")
             let elementSubelement = elementPipe[0].components(separatedBy: "/")
             
-            let key = elementSubelement[0].components(separatedBy: "_").joined(separator: " ")
+            let key = elementSubelement[0].components(separatedBy: "_").joined(separator: " ").capitalized
+            print(key)
             
             if !headers.contains(key) {
                 headers.append(key)
