@@ -50,7 +50,7 @@ class LoginViewController: UIViewController {
         
         self.view.addConstraints(PConstraint.paddingPositionConstraints(view: self.loginButton, sides: [.left, .right], padding: 60))
         self.view.addConstraint(PConstraint.verticalSpacingConstraint(upperView: self.passwordField, lowerView: self.loginButton, spacing: 100))
-        self.view.addConstraint(PConstraint.fillYConstraints(view: self.loginButton, heightRatio: 0.085))
+        self.view.addConstraint(PConstraint.fillYConstraints(view: self.loginButton, heightRatio: 0.08))
 
         self.view.addConstraints(PConstraint.paddingPositionConstraints(view: self.switchButton, sides: [.left, .right], padding: 60))
         self.view.addConstraint(PConstraint.verticalSpacingConstraint(upperView: self.loginButton, lowerView: self.switchButton, spacing: 10))

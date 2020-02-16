@@ -17,7 +17,8 @@ class TakePicture: UIView {
         
         self.translatesAutoresizingMaskIntoConstraints = false
         
-        self.backgroundColor = UIColor.red
+        self.layer.borderColor = UIColor.white.cgColor
+        self.layer.borderWidth = 4
         
         self.addSubview(self.picture)
         addConstraints()
@@ -29,7 +30,7 @@ class TakePicture: UIView {
     
     func addConstraints() {
         self.addConstraints(PConstraint.centerAlignConstraints(firstView: self.picture, secondView: self))
-        self.addConstraints(PConstraint.squareWidthConstraints(view: self.picture, squareRatio: 0.7))
+        self.addConstraints(PConstraint.squareWidthConstraints(view: self.picture, squareRatio: 0.5))
     }
     
 }

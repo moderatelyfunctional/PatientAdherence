@@ -14,7 +14,10 @@ class Picture: UIImageView {
         super.init(frame: .zero)
         
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.image = UIImage(named: "photograph")
+        self.image = UIImage(named: "photo")?.withRenderingMode(.alwaysTemplate)
+        self.tintColor = .white
+        self.contentMode = .scaleAspectFill
+        
     }
     
     required init?(coder: NSCoder) {
