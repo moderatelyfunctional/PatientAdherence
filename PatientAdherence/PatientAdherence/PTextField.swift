@@ -1,5 +1,5 @@
 //
-//  PLabel.swift
+//  PTextField.swift
 //  PatientAdherence
 //
 //  Created by Jing Lin on 2/15/20.
@@ -8,17 +8,16 @@
 
 import UIKit
 
-class PLabel: UILabel {
+class PTextField: UITextField {
     
-    init(font: UIFont, text: String, alignment: NSTextAlignment, textColor: UIColor) {
+    init(text: String, placeholderText: String) {
         super.init(frame: .zero)
-        self.translatesAutoresizingMaskIntoConstraints = false
         
-        self.numberOfLines = 0
-        self.font = font
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.textColor = UIColor.white
         self.text = text
-        self.textAlignment = alignment
-        self.textColor = textColor
+        self.placeholder = placeholderText
+//        self._placehol
         
     }
     

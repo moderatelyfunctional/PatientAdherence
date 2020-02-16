@@ -6,10 +6,10 @@
 //  Copyright © 2020 Jing Lin. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct Colors {
-    
+    static let baseColor = UIColor(red: 84.0/255, green: 160.0/255, blue: 104.0/255, alpha: 1.0)
 }
 
 
