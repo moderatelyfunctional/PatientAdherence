@@ -168,7 +168,7 @@ class QuestionViewController: UIViewController {
                         let json = try? JSONSerialization.jsonObject(with: data, options: []) as! [String: Double]
                         let similarity = (json!["similarity"])!
                             
-                        if similarity < 0.75 {
+                        if similarity < 0.2 {
                             DispatchQueue.main.async {
                                 let alert = UIAlertController(title: "Assessing Understanding", message: "Sorry, it looks like you don't completely understand the information yet. Your score is \(similarity). Try again?", preferredStyle: UIAlertController.Style.alert)
                                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))

@@ -65,20 +65,7 @@ class SignupViewController: UIViewController {
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        let url = "https://postman-echo.com/post"
-        let params:[String: Any] = [
-            "foo":1,
-            "so": 2
-        ]
-    //        HTTPAPI.instance().call(url: url, params: params, method: .POST, success: { (data, response, err) in
-    //            print("DATA IS \(data)")
-    //            print("JSON String: \(String(data: data, encoding: .utf8)!)")
-    //
-    //        }) { (data, response, err) in
-    //            print("error")
-    //        }
+        super.viewDidAppear(animated)        
     }
 
     @objc func switchToLogin() {
@@ -91,7 +78,7 @@ class SignupViewController: UIViewController {
     
     @objc func switchToPicture() {
 //        let name = self.nameField.text
-        let name = "Carine"
+        let name = "James"
         let pictureViewController = PictureViewController(name: name)
         pictureViewController.modalPresentationStyle = .fullScreen
         self.present(pictureViewController, animated: true, completion: nil)
