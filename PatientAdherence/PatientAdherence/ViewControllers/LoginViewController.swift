@@ -27,7 +27,7 @@ class LoginViewController: UIViewController {
         self.switchButton.addTarget(self, action: #selector(LoginViewController.switchToSignUp), for: .touchUpInside)
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard)))
         
-        self.view.backgroundColor = Colors.baseColor
+        self.view.backgroundColor = Colors.base
         self.view.addSubview(self.titleLabel)
         self.view.addSubview(self.emailField)
         self.view.addSubview(self.passwordField)
@@ -56,24 +56,7 @@ class LoginViewController: UIViewController {
         self.view.addConstraint(PConstraint.verticalSpacingConstraint(upperView: self.loginButton, lowerView: self.switchButton, spacing: 10))
         self.view.addConstraint(PConstraint.fillYConstraints(view: self.switchButton, heightRatio: 0.05))
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         
-        let url = "https://postman-echo.com/post"
-        let params:[String: Any] = [
-            "foo":1,
-            "so": 2
-        ]
-//        HTTPAPI.instance().call(url: url, params: params, method: .POST, success: { (data, response, err) in
-//            print("DATA IS \(data)")
-//            print("JSON String: \(String(data: data, encoding: .utf8)!)")
-//
-//        }) { (data, response, err) in
-//            print("error")
-//        }
-    }
-    
     @objc func switchToSignUp() {
         let signUpViewController = SignupViewController()
         signUpViewController.modalPresentationStyle = .fullScreen

@@ -14,12 +14,12 @@ class SignupViewController: UIViewController {
         font: UIFont.systemFont(ofSize: 40.0),
         text: "Glucose Guardian",
         alignment: .left,
-        textColor: Colors.baseColor)
-    let nameField = PTextField(color: Colors.baseColor, placeholderText: "name")
-    let emailField = PTextField(color: Colors.baseColor, placeholderText: "email address")
-    let passwordField = PTextField(color: Colors.baseColor, placeholderText: "password")
-    let signupButton = PButton(text: "Sign up", titleColor: UIColor.white, backgroundColor: Colors.baseColor, hasBorder: true)
-    let switchButton = PButton(text: "Have an account? Login here.", titleColor: Colors.baseColor, backgroundColor: UIColor.clear, hasBorder: false)
+        textColor: Colors.base)
+    let nameField = PTextField(color: Colors.base, placeholderText: "name")
+    let emailField = PTextField(color: Colors.base, placeholderText: "email address")
+    let passwordField = PTextField(color: Colors.base, placeholderText: "password")
+    let signupButton = PButton(text: "Sign up", titleColor: UIColor.white, backgroundColor: Colors.base, hasBorder: true)
+    let switchButton = PButton(text: "Have an account? Login here.", titleColor: Colors.base, backgroundColor: UIColor.clear, hasBorder: false)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,7 +91,7 @@ class SignupViewController: UIViewController {
     
     @objc func switchToPicture() {
 //        let name = self.nameField.text
-        let name = "Jing"
+        let name = "Carine"
         let pictureViewController = PictureViewController(name: name)
         pictureViewController.modalPresentationStyle = .fullScreen
         self.present(pictureViewController, animated: true, completion: nil)

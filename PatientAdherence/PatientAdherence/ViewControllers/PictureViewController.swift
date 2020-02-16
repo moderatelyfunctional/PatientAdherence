@@ -24,7 +24,7 @@ class PictureViewController: UIViewController {
         self.titleLabel.text = "Hi \(name), take a photo!"
         super.init(nibName: nil, bundle: nil)
                 
-        self.view.backgroundColor = Colors.baseColor
+        self.view.backgroundColor = Colors.base
     }
     
     required init?(coder: NSCoder) {

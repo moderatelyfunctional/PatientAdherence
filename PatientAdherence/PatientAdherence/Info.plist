@@ -2,8 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Microphone access is needed to answer questions.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Please allow access to save photo in your photo library</string>
+	<string>Photo access is needed to create profile pictures.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>This app will use camera.</string>
 	<key>CFBundleDevelopmentRegion</key>

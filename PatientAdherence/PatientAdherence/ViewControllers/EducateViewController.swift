@@ -34,6 +34,17 @@ class EducateViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = Colors.base
+
+        HTTPAPI.instance().call(url: URLS.diabetes, params: nil, method: .GET, success: { (data, response, err) in
+            print("DATA IS \(data)")
+            print("JSON String: \(String(data: data, encoding: .utf8)!)")
+
+        }) { (data, response, err) in
+            print("error")
+        }
+
+        
         self.recordingSession = AVAudioSession.sharedInstance()
         do {
             try self.recordingSession.setCategory(.playAndRecord, options: .defaultToSpeaker)
