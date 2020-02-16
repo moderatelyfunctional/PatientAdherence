@@ -1,5 +1,5 @@
 //
-//  LoginViewController.swift
+//  SignupViewController.swift
 //  PatientAdherence
 //
 //  Created by Jing Lin on 2/15/20.
@@ -8,30 +8,30 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
-
-    let titleLabel = PLabel(
-        font: UIFont.systemFont(ofSize: 48.0),
-        text: "Placeholder",
-        alignment: .center,
-        textColor: UIColor.white)
-    let emailField = PTextField(color: UIColor.white, placeholderText: "email address")
-    let passwordField = PTextField(color: UIColor.white, placeholderText: "password")
-    let loginButton = PButton(text: "Login", titleColor: UIColor.white, backgroundColor: UIColor.clear, hasBorder: true)
-    let switchButton = PButton(text: "No account? Sign up here.", titleColor: UIColor.white, backgroundColor: UIColor.clear, hasBorder: false)
+class SignupViewController: UIViewController {
     
+    let titleLabel = PLabel(
+        font: UIFont.systemFont(ofSize: 40.0),
+        text: "Hi! Create your account here.",
+        alignment: .center,
+        textColor: Colors.baseColor)
+    let emailField = PTextField(color: Colors.baseColor, placeholderText: "email address")
+    let passwordField = PTextField(color: Colors.baseColor, placeholderText: "password")
+    let signupButton = PButton(text: "Sign up", titleColor: UIColor.white, backgroundColor: Colors.baseColor, hasBorder: true)
+    let switchButton = PButton(text: "Have an account? Login here.", titleColor: Colors.baseColor, backgroundColor: UIColor.clear, hasBorder: false)
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        self.switchButton.addTarget(self, action: #selector(LoginViewController.switchToSignUp), for: .touchUpInside)
+        self.switchButton.addTarget(self, action: #selector(SignupViewController.switchToLogin), for: .touchUpInside)
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard)))
-        
-        self.view.backgroundColor = Colors.baseColor
+
+        self.view.backgroundColor = UIColor.white
         self.view.addSubview(self.titleLabel)
         self.view.addSubview(self.emailField)
         self.view.addSubview(self.passwordField)
-        self.view.addSubview(self.loginButton)
+        self.view.addSubview(self.signupButton)
         self.view.addSubview(self.switchButton)
         addConstraints()
     }
@@ -48,15 +48,15 @@ class LoginViewController: UIViewController {
         self.view.addConstraint(PConstraint.verticalSpacingConstraint(upperView: self.emailField, lowerView: self.passwordField, spacing: 10))
         self.view.addConstraint(PConstraint.fillYConstraints(view: self.passwordField, heightRatio: 0.1))
         
-        self.view.addConstraints(PConstraint.paddingPositionConstraints(view: self.loginButton, sides: [.left, .right], padding: 60))
-        self.view.addConstraint(PConstraint.verticalSpacingConstraint(upperView: self.passwordField, lowerView: self.loginButton, spacing: 100))
-        self.view.addConstraint(PConstraint.fillYConstraints(view: self.loginButton, heightRatio: 0.085))
+        self.view.addConstraints(PConstraint.paddingPositionConstraints(view: self.signupButton, sides: [.left, .right], padding: 60))
+        self.view.addConstraint(PConstraint.verticalSpacingConstraint(upperView: self.passwordField, lowerView: self.signupButton, spacing: 100))
+        self.view.addConstraint(PConstraint.fillYConstraints(view: self.signupButton, heightRatio: 0.085))
 
         self.view.addConstraints(PConstraint.paddingPositionConstraints(view: self.switchButton, sides: [.left, .right], padding: 60))
-        self.view.addConstraint(PConstraint.verticalSpacingConstraint(upperView: self.loginButton, lowerView: self.switchButton, spacing: 10))
+        self.view.addConstraint(PConstraint.verticalSpacingConstraint(upperView: self.signupButton, lowerView: self.switchButton, spacing: 10))
         self.view.addConstraint(PConstraint.fillYConstraints(view: self.switchButton, heightRatio: 0.05))
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -65,25 +65,21 @@ class LoginViewController: UIViewController {
             "foo":1,
             "so": 2
         ]
-//        HTTPAPI.instance().call(url: url, params: params, method: .POST, success: { (data, response, err) in
-//            print("DATA IS \(data)")
-//            print("JSON String: \(String(data: data, encoding: .utf8)!)")
-//
-//        }) { (data, response, err) in
-//            print("error")
-//        }
+    //        HTTPAPI.instance().call(url: url, params: params, method: .POST, success: { (data, response, err) in
+    //            print("DATA IS \(data)")
+    //            print("JSON String: \(String(data: data, encoding: .utf8)!)")
+    //
+    //        }) { (data, response, err) in
+    //            print("error")
+    //        }
     }
-    
-    @objc func switchToSignUp() {
-        let signUpViewController = SignupViewController()
-        signUpViewController.modalPresentationStyle = .fullScreen
-        self.present(signUpViewController, animated: true, completion: nil)
+
+    @objc func switchToLogin() {
+        self.dismiss(animated: true, completion: nil)
     }
-    
+
     @objc func dismissKeyboard() {
         self.view.endEditing(true)
     }
     
-
 }
-

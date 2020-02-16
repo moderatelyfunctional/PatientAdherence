@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		DC76495223F8C1EC000FA1BC /* PTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC76495123F8C1EC000FA1BC /* PTextField.swift */; };
+		DC76495423F8C805000FA1BC /* PView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC76495323F8C805000FA1BC /* PView.swift */; };
+		DC76495623F8CD9B000FA1BC /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC76495523F8CD9B000FA1BC /* SignupViewController.swift */; };
 		DCC7518623F8638C00C53AAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC7518523F8638C00C53AAB /* AppDelegate.swift */; };
 		DCC7518823F8638C00C53AAB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC7518723F8638C00C53AAB /* SceneDelegate.swift */; };
 		DCC7518A23F8638C00C53AAB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC7518923F8638C00C53AAB /* LoginViewController.swift */; };
@@ -24,6 +26,8 @@
 
 /* Begin PBXFileReference section */
 		DC76495123F8C1EC000FA1BC /* PTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTextField.swift; sourceTree = "<group>"; };
+		DC76495323F8C805000FA1BC /* PView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PView.swift; sourceTree = "<group>"; };
+		DC76495523F8CD9B000FA1BC /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		DCC7518223F8638C00C53AAB /* PatientAdherence.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PatientAdherence.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCC7518523F8638C00C53AAB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DCC7518723F8638C00C53AAB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -74,6 +78,7 @@
 				DCC7519B23F86C0B00C53AAB /* PConstraint.swift */,
 				DCC751A123F873A200C53AAB /* Constants.swift */,
 				DC76495123F8C1EC000FA1BC /* PTextField.swift */,
+				DC76495323F8C805000FA1BC /* PView.swift */,
 				DCC751A923F8822400C53AAB /* ViewControllers */,
 				DCC7519D23F86CE200C53AAB /* HTTPAPI.swift */,
 				DCC7518723F8638C00C53AAB /* SceneDelegate.swift */,
@@ -90,6 +95,7 @@
 		DCC751A923F8822400C53AAB /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				DC76495523F8CD9B000FA1BC /* SignupViewController.swift */,
 				DCC7518923F8638C00C53AAB /* LoginViewController.swift */,
 				DCC751AA23F8827600C53AAB /* EducateViewController.swift */,
 			);
@@ -171,9 +177,11 @@
 				DCC751A623F8792500C53AAB /* Extensions.swift in Sources */,
 				DCC7518A23F8638C00C53AAB /* LoginViewController.swift in Sources */,
 				DCC7519C23F86C0B00C53AAB /* PConstraint.swift in Sources */,
+				DC76495423F8C805000FA1BC /* PView.swift in Sources */,
 				DCC751AB23F8827600C53AAB /* EducateViewController.swift in Sources */,
 				DCC7518623F8638C00C53AAB /* AppDelegate.swift in Sources */,
 				DCC751A423F875F500C53AAB /* PButton.swift in Sources */,
+				DC76495623F8CD9B000FA1BC /* SignupViewController.swift in Sources */,
 				DCC751A223F873A200C53AAB /* Constants.swift in Sources */,
 				DCC751A023F8736F00C53AAB /* PLabel.swift in Sources */,
 				DCC7518823F8638C00C53AAB /* SceneDelegate.swift in Sources */,

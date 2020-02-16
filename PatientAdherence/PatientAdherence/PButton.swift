@@ -13,7 +13,7 @@ class PButton: UIButton {
     let titleColor:UIColor
     let pressedTitleColor:UIColor
     
-    init(text: String, titleColor: UIColor, backgroundColor: UIColor) {
+    init(text: String, titleColor: UIColor, backgroundColor: UIColor, hasBorder: Bool) {
         self.titleColor = backgroundColor
         self.pressedTitleColor = backgroundColor.darker(by: 10)!
 
@@ -22,8 +22,12 @@ class PButton: UIButton {
         
         self.setTitle(text, for: .normal)
         self.setTitleColor(titleColor, for: .normal)
-        self.layer.cornerRadius = 4
+        self.layer.cornerRadius = 10
         self.backgroundColor = backgroundColor
+        if hasBorder {
+            self.layer.borderColor = UIColor.white.cgColor
+            self.layer.borderWidth = 3
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -32,7 +36,8 @@ class PButton: UIButton {
     
     override open var isHighlighted: Bool {
         didSet {
-            backgroundColor = isHighlighted ? self.pressedTitleColor : self.titleColor
+            self.layer.opacity = isHighlighted ? 0.7 : 1.0
+//            backgroundColor = isHighlighted ? self.pressedTitleColor : self.titleColor
         }
     }
     

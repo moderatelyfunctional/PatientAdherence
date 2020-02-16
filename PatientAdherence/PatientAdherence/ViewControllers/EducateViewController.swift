@@ -14,7 +14,8 @@ class EducateViewController: UIViewController {
     let recordButton = PButton(
         text: "Press To Answer",
         titleColor: UIColor.white,
-        backgroundColor: UIColor.green)
+        backgroundColor: UIColor.green,
+        hasBorder: false)
     var recordingSession:AVAudioSession!
     var audioRecorder:AVAudioRecorder!
     
