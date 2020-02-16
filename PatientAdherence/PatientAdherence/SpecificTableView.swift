@@ -1,5 +1,5 @@
 //
-//  QuestionsTableView.swift
+//  SpecificTableView.swift
 //  PatientAdherence
 //
 //  Created by Jing Lin on 2/15/20.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-class QuestionsTableView: UITableView, UITableViewDataSource {
+class SpecificTableView: UITableView, UITableViewDataSource {
     
     let data:[String]
-    init(data: [String]) {
+    init(data:[String]) {
         self.data = data
         super.init(frame: .zero, style: .plain)
         
@@ -26,20 +26,12 @@ class QuestionsTableView: UITableView, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        return self.data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var percentage:CGFloat = 0.0
-        for (element, values) in FakeData.diabetesProgress {
-            if element == self.data[indexPath.item] {
-                percentage = 100 * CGFloat(values.reduce(0, +)) / CGFloat(values.count)
-            }
-        }
-        
-        return QuestionCell(name: self.data[indexPath.item], percentage: percentage)
+        return QACell(name: self.data[indexPath.item])
+
     }
-    
-    
-    
+
 }

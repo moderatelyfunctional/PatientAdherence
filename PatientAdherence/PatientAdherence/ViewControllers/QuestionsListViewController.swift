@@ -8,7 +8,7 @@
 
 import UIKit
 
-class QuestionsListViewController: UIViewController, UITableViewDelegate {
+class QuestionsListViewController: UIViewController {
     
     let questionsTableView = QuestionsTableView(data: FakeData.headers)
     
@@ -30,14 +30,25 @@ class QuestionsListViewController: UIViewController, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.addSubview(self.questionsTableView)
+        self.questionsTableView.delegate = self
         
+        self.view.addSubview(self.questionsTableView)
         addConstraints()
     }
     
     func addConstraints() {
-        self.view.addConstraints(PConstraint.paddingPositionConstraints(view: self.questionsTableView, sides: [.left, .top, .bottom, .right], padding: 0))
+        self.view.addConstraints(PConstraint.paddingPositionConstraints(view: self.questionsTableView, sides: [.left, .top, .right, .bottom], padding: 0))
+    }
+}
+
+extension QuestionsListViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let index = indexPath.item
+        let detailTitle = FakeData.headers[index]
+        let 
+        
+        self.navigationController?.pushViewController(, animated: <#T##Bool#>)
     }
     
 }
-
