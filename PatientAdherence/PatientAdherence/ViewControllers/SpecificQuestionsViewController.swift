@@ -44,8 +44,7 @@ extension SpecificQuestionsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let data = FakeData.diabetes[self.title!]![indexPath.row]
         let questionViewController = QuestionViewController(question: data, key: self.title!, index: indexPath.row)
-        questionViewController.modalPresentationStyle = .fullScreen
-        self.present(questionViewController, animated: true, completion: nil)
+        self.navigationController?.pushViewController(questionViewController, animated: true)
     }
     
 }

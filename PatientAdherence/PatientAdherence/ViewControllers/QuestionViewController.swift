@@ -16,10 +16,12 @@ class QuestionViewController: UIViewController {
     let key:String
     let index:Int
     
-    let playButton = PButton(text: "Play", titleColor: UIColor.white, backgroundColor: Colors.base, hasBorder: true)
-    let answerButton = PButton(text: "Answer", titleColor: UIColor.white, backgroundColor: Colors.base, hasBorder: true)
+    let playImg = PImageView(imgName: "play")
+    let answerImg = PImageView(imgName: "record")
     
-//    let audioEngine = AVAudioEngine()
+    let playButton = PButton(text: "Play the clip", titleColor: Colors.base, backgroundColor: UIColor.white, hasBorder: false)
+    let answerButton = PButton(text: "Answer", titleColor: Colors.base, backgroundColor: UIColor.white, hasBorder: false)
+    
     let speechRecognizer = SFSpeechRecognizer()
     var recognitionRequest:SFSpeechURLRecognitionRequest!
     var audioSession:AVAudioSession!
@@ -27,14 +29,14 @@ class QuestionViewController: UIViewController {
     var audioPlayer:AVAudioPlayer!
     
     var bestResult = ""
-//    let request = SFSpeechAudioBufferRecognitionRequest()
-//    var recognitionTask:SFSpeechRecognitionTask?
     
     init(question: String, key: String, index: Int) {
         self.question = question
         self.key = key
         self.index = index
         super.init(nibName: nil, bundle: nil)
+        
+        self.title = "\(key) - Educational Study"
     }
     
     required init?(coder: NSCoder) {
@@ -58,36 +60,30 @@ class QuestionViewController: UIViewController {
         
         self.requestSpeechAuthorization()
         
+        self.view.addSubview(self.playImg)
+        self.view.addSubview(self.answerImg)
         self.view.addSubview(self.playButton)
         self.view.addSubview(self.answerButton)
         addConstraints()
     }
     
     func addConstraints() {
-        self.view.addConstraints(PConstraint.paddingPositionConstraints(view: self.playButton, sides: [.left, .top, .right], padding: 20))
-        self.view.addConstraint(PConstraint.fillYConstraints(view: self.playButton, heightRatio: 0.2))
-        self.view.addConstraints(PConstraint.paddingPositionConstraints(view: self.answerButton, sides: [.left, .bottom, .right], padding: 20))
-        self.view.addConstraint(PConstraint.fillYConstraints(view: self.answerButton, heightRatio: 0.2))
+        self.view.addConstraints(PConstraint.squareWidthConstraints(view: self.playImg, squareRatio: 0.3))
+        self.view.addConstraint(PConstraint.horizontalAlignConstraint(firstView: self.playImg, secondView: self.view))
+        self.view.addConstraint(PConstraint.paddingPositionConstraint(view: self.playImg, side: .top, padding: 240))
         
+        self.view.addConstraint(PConstraint.verticalSpacingConstraint(upperView: self.playImg, lowerView: self.playButton, spacing: 20))
+        self.view.addConstraint(PConstraint.horizontalAlignConstraint(firstView: self.playImg, secondView: self.playButton))
+        
+        self.view.addConstraints(PConstraint.squareWidthConstraints(view: self.answerImg, squareRatio: 0.3))
+        self.view.addConstraint(PConstraint.horizontalAlignConstraint(firstView: self.answerImg, secondView: self.view))
+        self.view.addConstraint(PConstraint.verticalSpacingConstraint(upperView: self.playButton, lowerView: self.answerImg, spacing: 60))
+
+        self.view.addConstraint(PConstraint.verticalSpacingConstraint(upperView: self.answerImg, lowerView: self.answerButton, spacing: 20))
+        self.view.addConstraint(PConstraint.horizontalAlignConstraint(firstView: self.answerImg, secondView: self.answerButton))
     }
     
     @objc func playQuestion() {
-        let url = getDocumentsDirectory().appendingPathComponent("recording.m4a")
-        transcribeAudio(url: url)
-        return
-        
-        
-        let audioFilename = getDocumentsDirectory().appendingPathComponent("recording.m4a")
-        print(audioFilename)
-        
-        do {
-            try self.audioPlayer = AVAudioPlayer(contentsOf: audioFilename)
-            self.audioPlayer.play()
-        } catch {
-            print("some error")
-        }
-        return
-        
         self.audioSession = AVAudioSession.sharedInstance()
         do {
             try self.audioSession.setCategory(.playAndRecord, options: .defaultToSpeaker)
@@ -114,11 +110,10 @@ class QuestionViewController: UIViewController {
             startRecording()
         } else {
             finishRecording(success: true)
-//            let url = getDocumentsDirectory().appendingPathComponent("recording.m4a")
-//            transcribeAudio(url: url)
+            let url = getDocumentsDirectory().appendingPathComponent("recording.m4a")
+            transcribeAudio(url: url)
         }
     }
-    
     
     @objc func startRecording() {
         let audioFilename = getDocumentsDirectory().appendingPathComponent("recording.m4a")
@@ -134,8 +129,7 @@ class QuestionViewController: UIViewController {
             self.audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
             self.audioRecorder.delegate = self
             self.audioRecorder.prepareToRecord()
-            self.audioRecorder.record(forDuration: 10)
-//            self.audioRecorder.record()
+            self.audioRecorder.record()
 
             self.answerButton.setTitle("Finish Answering", for: .normal)
         } catch {
@@ -148,9 +142,11 @@ class QuestionViewController: UIViewController {
         self.audioRecorder = nil
 
         if success {
-            self.answerButton.setTitle("Start Re-Answering", for: .normal)
+            self.answerButton.setTitle("Re-Answer", for: .normal)
+            let audioFilename = getDocumentsDirectory().appendingPathComponent("recording.m4a")
+            transcribeAudio(url: audioFilename)
         } else {
-            self.answerButton.setTitle("Start Answering", for: .normal)
+            self.answerButton.setTitle("Answer", for: .normal)
             // recording failed :(
         }
     }
@@ -158,16 +154,37 @@ class QuestionViewController: UIViewController {
     func transcribeAudio(url: URL) {
         // create a new recognizer and point it at our audio
         self.recognitionRequest = SFSpeechURLRecognitionRequest(url: url)
-        self.recognitionRequest.shouldReportPartialResults = true
         
         // start recognition!
         self.speechRecognizer?.recognitionTask(with: self.recognitionRequest, resultHandler: { result, error in
             if let result = result {
-                self.bestResult = result.bestTranscription.formattedString
-                print(self.bestResult)
-//                if result.isFinal {
-//                    print(result.bestTranscription.formattedString)
-//                }
+                if result.isFinal {
+                    self.bestResult = result.bestTranscription.formattedString
+                    let params:[String: String] = [
+                        "question": self.question,
+                        "answer": self.bestResult
+                    ]
+                    HTTPAPI.instance().call(url: URLS.similarity, params: params, method: .POST, success: { (data, response, err) in
+                        let json = try? JSONSerialization.jsonObject(with: data, options: []) as! [String: Double]
+                        let similarity = (json!["similarity"])!
+                            
+                        if similarity < 0.75 {
+                            DispatchQueue.main.async {
+                                let alert = UIAlertController(title: "Assessing Understanding", message: "Sorry, it looks like you don't completely understand the information yet. Your score is \(similarity). Try again?", preferredStyle: UIAlertController.Style.alert)
+                                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                                self.present(alert, animated: true, completion: nil)
+                            }
+                        } else {
+                            DispatchQueue.main.async {
+                                let alert = UIAlertController(title: "Assessing Understanding", message: "Awesome! It looks like you really understand the information. Your score is \(similarity).", preferredStyle: UIAlertController.Style.alert)
+                                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                                self.present(alert, animated: true, completion: nil)
+                            }
+
+                        }
+                    }) { (data, response, err) in
+                    }
+                }
             } else {
                 print(error)
             }

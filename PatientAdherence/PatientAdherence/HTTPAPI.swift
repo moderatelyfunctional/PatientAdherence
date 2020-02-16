@@ -27,6 +27,9 @@ class HTTPAPI {
     func call(url: String, params: Dictionary<String, Any>?, method: HTTPMethod, success:@escaping (Data, HTTPURLResponse, NSError?) -> Void, failure:@escaping (Data?, HTTPURLResponse?, NSError?) -> Void) {
         request = URLRequest(url: URL(string: url)!)
         
+        print("THE URL IS")
+        print(request?.url)
+        
         if let params = params {
             let jsonData = try! JSONSerialization.data(withJSONObject: params)
             request?.setValue("application/json", forHTTPHeaderField: "Content-Type")

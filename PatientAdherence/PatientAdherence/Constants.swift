@@ -17,6 +17,7 @@ struct Colors {
 
 struct URLS {
     static let diabetes = "https://treehacksapp-conditions.s3.amazonaws.com/condition-kb.txt"
+    static let similarity = "http://3.82.250.203/similarity"
 }
 
 struct FakeData {
