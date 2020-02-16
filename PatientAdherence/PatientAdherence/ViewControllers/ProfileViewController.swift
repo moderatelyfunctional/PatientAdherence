@@ -117,7 +117,9 @@ class ProfileViewController: UIViewController {
     }
     
     @objc func switchToPoints() {
-        
+        let pointsViewController = PointsViewController()
+        self.navigationController?.pushViewController(pointsViewController, animated: true)
+
     }
     
 }
