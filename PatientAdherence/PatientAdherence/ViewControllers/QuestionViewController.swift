@@ -180,16 +180,12 @@ class QuestionViewController: UIViewController {
                         let similarity = (json!["similarity"])!
 
                         DispatchQueue.main.async {
-                            if similarity < 0.2 {
-                                let alert = UIAlertController(title: "Assessing Understanding", message: "Sorry, it looks like you don't completely understand the information yet. Your score is \(similarity). Try again?", preferredStyle: UIAlertController.Style.alert)
-                                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-                                self.present(alert, animated: true, completion: nil)
-                            } else {
-                                let alert = UIAlertController(title: "Assessing Understanding", message: "Awesome! It looks like you really understand the information. Your score is \(similarity).", preferredStyle: UIAlertController.Style.alert)
-                                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-                                self.present(alert, animated: true, completion: nil)
-                            }
+                            let right = similarity > 0.2
+                            let starsViewController = StarsViewController(title: self.key, right: right)
+                            starsViewController.modalPresentationStyle = .fullScreen
+                            self.present(starsViewController, animated: true, completion: nil)
                         }
+                    
                     }) { (data, response, err) in
                     }
                 }
