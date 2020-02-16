@@ -20,6 +20,10 @@ struct URLS {
     static let similarity = "http://3.82.250.203/similarity"
 }
 
+struct name {
+    static let james = "James Wright"
+}
+
 struct FakeData {
     static var headers:[String] = ["symptoms", "causes", "treatments"]
     static var diabetes:[String:[String]] = [

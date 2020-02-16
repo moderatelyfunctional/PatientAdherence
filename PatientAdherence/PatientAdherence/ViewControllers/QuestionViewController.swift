@@ -30,6 +30,8 @@ class QuestionViewController: UIViewController {
     
     var bestResult = ""
     
+    let responseText = PLabel(font: UIFont.systemFont(ofSize: 16.0), text: "", alignment: .center, textColor: Colors.base)
+    
     init(question: String, key: String, index: Int) {
         self.question = question
         self.key = key
@@ -64,6 +66,7 @@ class QuestionViewController: UIViewController {
         self.view.addSubview(self.answerImg)
         self.view.addSubview(self.playButton)
         self.view.addSubview(self.answerButton)
+        self.view.addSubview(self.responseText)
         addConstraints()
     }
     
@@ -81,6 +84,9 @@ class QuestionViewController: UIViewController {
 
         self.view.addConstraint(PConstraint.verticalSpacingConstraint(upperView: self.answerImg, lowerView: self.answerButton, spacing: 20))
         self.view.addConstraint(PConstraint.horizontalAlignConstraint(firstView: self.answerImg, secondView: self.answerButton))
+        
+        self.view.addConstraints(PConstraint.paddingPositionConstraints(view: self.responseText, sides: [.left, .right], padding: 40))
+        self.view.addConstraint(PConstraint.verticalSpacingConstraint(upperView: self.answerButton, lowerView: self.responseText, spacing: 25))
     }
     
     @objc func playQuestion() {
@@ -164,23 +170,25 @@ class QuestionViewController: UIViewController {
                         "question": self.question,
                         "answer": self.bestResult
                     ]
+                    
+                    DispatchQueue.main.async {
+                        self.responseText.text = self.bestResult
+                    }
+                    
                     HTTPAPI.instance().call(url: URLS.similarity, params: params, method: .POST, success: { (data, response, err) in
                         let json = try? JSONSerialization.jsonObject(with: data, options: []) as! [String: Double]
                         let similarity = (json!["similarity"])!
-                            
-                        if similarity < 0.2 {
-                            DispatchQueue.main.async {
+
+                        DispatchQueue.main.async {
+                            if similarity < 0.2 {
                                 let alert = UIAlertController(title: "Assessing Understanding", message: "Sorry, it looks like you don't completely understand the information yet. Your score is \(similarity). Try again?", preferredStyle: UIAlertController.Style.alert)
                                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
                                 self.present(alert, animated: true, completion: nil)
-                            }
-                        } else {
-                            DispatchQueue.main.async {
+                            } else {
                                 let alert = UIAlertController(title: "Assessing Understanding", message: "Awesome! It looks like you really understand the information. Your score is \(similarity).", preferredStyle: UIAlertController.Style.alert)
                                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
                                 self.present(alert, animated: true, completion: nil)
                             }
-
                         }
                     }) { (data, response, err) in
                     }
