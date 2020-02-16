@@ -12,9 +12,10 @@ class SignupViewController: UIViewController {
     
     let titleLabel = PLabel(
         font: UIFont.systemFont(ofSize: 40.0),
-        text: "Hi! Create your account here.",
-        alignment: .center,
+        text: "Glucose Guardian",
+        alignment: .left,
         textColor: Colors.baseColor)
+    let nameField = PTextField(color: Colors.baseColor, placeholderText: "name")
     let emailField = PTextField(color: Colors.baseColor, placeholderText: "email address")
     let passwordField = PTextField(color: Colors.baseColor, placeholderText: "password")
     let signupButton = PButton(text: "Sign up", titleColor: UIColor.white, backgroundColor: Colors.baseColor, hasBorder: true)
@@ -24,11 +25,13 @@ class SignupViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        self.signupButton.addTarget(self, action: #selector(SignupViewController.switchToPicture), for: .touchUpInside)
         self.switchButton.addTarget(self, action: #selector(SignupViewController.switchToLogin), for: .touchUpInside)
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard)))
 
         self.view.backgroundColor = UIColor.white
         self.view.addSubview(self.titleLabel)
+        self.view.addSubview(self.nameField)
         self.view.addSubview(self.emailField)
         self.view.addSubview(self.passwordField)
         self.view.addSubview(self.signupButton)
@@ -40,16 +43,20 @@ class SignupViewController: UIViewController {
         self.view.addConstraints(PConstraint.paddingPositionConstraints(view: self.titleLabel, sides: [.left, .right], padding: 60))
         self.view.addConstraint(PConstraint.paddingPositionConstraint(view: self.titleLabel, side: .top, padding: 100))
         
+        self.view.addConstraints(PConstraint.paddingPositionConstraints(view: self.nameField, sides: [.left, .right], padding: 60))
+        self.view.addConstraint(PConstraint.verticalSpacingConstraint(upperView: self.titleLabel, lowerView: self.nameField, spacing: 30))
+        self.view.addConstraint(PConstraint.fillYConstraints(view: self.nameField, heightRatio: 0.08))
+        
         self.view.addConstraints(PConstraint.paddingPositionConstraints(view: self.emailField, sides: [.left, .right], padding: 60))
-        self.view.addConstraint(PConstraint.verticalSpacingConstraint(upperView: self.titleLabel, lowerView: self.emailField, spacing: 60))
-        self.view.addConstraint(PConstraint.fillYConstraints(view: self.emailField, heightRatio: 0.1))
+        self.view.addConstraint(PConstraint.verticalSpacingConstraint(upperView: self.nameField, lowerView: self.emailField, spacing: 10))
+        self.view.addConstraint(PConstraint.fillYConstraints(view: self.emailField, heightRatio: 0.08))
         
         self.view.addConstraints(PConstraint.paddingPositionConstraints(view: self.passwordField, sides: [.left, .right], padding: 60))
         self.view.addConstraint(PConstraint.verticalSpacingConstraint(upperView: self.emailField, lowerView: self.passwordField, spacing: 10))
-        self.view.addConstraint(PConstraint.fillYConstraints(view: self.passwordField, heightRatio: 0.1))
+        self.view.addConstraint(PConstraint.fillYConstraints(view: self.passwordField, heightRatio: 0.08))
         
         self.view.addConstraints(PConstraint.paddingPositionConstraints(view: self.signupButton, sides: [.left, .right], padding: 60))
-        self.view.addConstraint(PConstraint.verticalSpacingConstraint(upperView: self.passwordField, lowerView: self.signupButton, spacing: 100))
+        self.view.addConstraint(PConstraint.verticalSpacingConstraint(upperView: self.passwordField, lowerView: self.signupButton, spacing: 70))
         self.view.addConstraint(PConstraint.fillYConstraints(view: self.signupButton, heightRatio: 0.085))
 
         self.view.addConstraints(PConstraint.paddingPositionConstraints(view: self.switchButton, sides: [.left, .right], padding: 60))
@@ -81,5 +88,14 @@ class SignupViewController: UIViewController {
     @objc func dismissKeyboard() {
         self.view.endEditing(true)
     }
+    
+    @objc func switchToPicture() {
+//        let name = self.nameField.text
+        let name = "Jing"
+        let pictureViewController = PictureViewController(name: name)
+        pictureViewController.modalPresentationStyle = .fullScreen
+        self.present(pictureViewController, animated: true, completion: nil)
+    }
+    
     
 }

@@ -11,9 +11,9 @@ import UIKit
 class LoginViewController: UIViewController {
 
     let titleLabel = PLabel(
-        font: UIFont.systemFont(ofSize: 48.0),
-        text: "Placeholder",
-        alignment: .center,
+        font: UIFont.systemFont(ofSize: 40.0),
+        text: "Glucose Guardian",
+        alignment: .left,
         textColor: UIColor.white)
     let emailField = PTextField(color: UIColor.white, placeholderText: "email address")
     let passwordField = PTextField(color: UIColor.white, placeholderText: "password")
@@ -42,11 +42,11 @@ class LoginViewController: UIViewController {
         
         self.view.addConstraints(PConstraint.paddingPositionConstraints(view: self.emailField, sides: [.left, .right], padding: 60))
         self.view.addConstraint(PConstraint.verticalSpacingConstraint(upperView: self.titleLabel, lowerView: self.emailField, spacing: 60))
-        self.view.addConstraint(PConstraint.fillYConstraints(view: self.emailField, heightRatio: 0.1))
+        self.view.addConstraint(PConstraint.fillYConstraints(view: self.emailField, heightRatio: 0.08))
         
         self.view.addConstraints(PConstraint.paddingPositionConstraints(view: self.passwordField, sides: [.left, .right], padding: 60))
         self.view.addConstraint(PConstraint.verticalSpacingConstraint(upperView: self.emailField, lowerView: self.passwordField, spacing: 10))
-        self.view.addConstraint(PConstraint.fillYConstraints(view: self.passwordField, heightRatio: 0.1))
+        self.view.addConstraint(PConstraint.fillYConstraints(view: self.passwordField, heightRatio: 0.08))
         
         self.view.addConstraints(PConstraint.paddingPositionConstraints(view: self.loginButton, sides: [.left, .right], padding: 60))
         self.view.addConstraint(PConstraint.verticalSpacingConstraint(upperView: self.passwordField, lowerView: self.loginButton, spacing: 100))
