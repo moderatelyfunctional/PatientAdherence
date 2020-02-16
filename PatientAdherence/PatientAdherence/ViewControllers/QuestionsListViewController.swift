@@ -8,20 +8,25 @@
 
 import UIKit
 
-class QuestionsListViewController: UINavigationController, UITableViewDelegate {
+class QuestionsListViewController: UIViewController, UITableViewDelegate {
     
     let questionsTableView = QuestionsTableView(data: FakeData.headers)
     
     init() {
         super.init(nibName: nil, bundle: nil)
-        self.navigationItem.title = "Education Academy"
+        self.title = "Education Academy"
 
+        self.view.backgroundColor = UIColor.white
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,8 +36,7 @@ class QuestionsListViewController: UINavigationController, UITableViewDelegate {
     }
     
     func addConstraints() {
-        self.view.addConstraints(PConstraint.paddingPositionConstraints(view: self.questionsTableView, sides: [.left, .bottom, .right], padding: 0))
-        self.view.addConstraint(PConstraint.fillYConstraints(view: self.questionsTableView, heightRatio: 0.7))
+        self.view.addConstraints(PConstraint.paddingPositionConstraints(view: self.questionsTableView, sides: [.left, .top, .bottom, .right], padding: 0))
     }
     
 }

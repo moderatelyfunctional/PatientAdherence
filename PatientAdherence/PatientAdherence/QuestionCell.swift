@@ -10,8 +10,8 @@ import UIKit
 
 class QuestionCell: UITableViewCell {
     
-    let nameLabel = PLabel(font: UIFont.systemFont(ofSize: 16.0), text: "", alignment: .left, textColor: Colors.grey)
-    let percentage = PLabel(font: UIFont.systemFont(ofSize: 16.0), text: "", alignment: .left, textColor: Colors.grey)
+    let nameLabel = PLabel(font: UIFont.systemFont(ofSize: 20.0), text: "", alignment: .left, textColor: Colors.grey)
+    let percentage = PLabel(font: UIFont.systemFont(ofSize: 20.0), text: "", alignment: .right, textColor: Colors.grey)
     
     init(name: String, percentage: CGFloat) {
         super.init(style: .default, reuseIdentifier: "questionCell")
@@ -20,9 +20,9 @@ class QuestionCell: UITableViewCell {
         self.selectionStyle = .none
         
         self.nameLabel.text = name
-        if percentage < 0.4 {
+        if percentage < 40 {
             self.percentage.textColor = Colors.red
-        } else if percentage < 0.75 {
+        } else if percentage < 75 {
             self.percentage.textColor = Colors.yellow
         } else {
             self.percentage.textColor = Colors.grey
@@ -39,11 +39,16 @@ class QuestionCell: UITableViewCell {
     }
     
     func addConstraints() {
-        self.contentView.addConstraint(PConstraint.paddingPositionConstraint(view: self.percentage, side: .left, padding: 60))
-        self.contentView.addConstraints(PConstraint.paddingPositionConstraints(view: self.percentage, sides: [.top, .bottom], padding: 20))
+        self.contentView.addConstraints(PConstraint.paddingPositionConstraints(view: self.nameLabel, sides: [.left, .right], padding: 120))
         
-        self.contentView.addConstraint(PConstraint.horizontalSpacingConstraint(leftView: self.percentage, rightView: self.nameLabel, spacing: 40))
-        self.contentView.addConstraints(PConstraint.paddingPositionConstraints(view: self.nameLabel, sides: [.top, .bottom], padding: 20))
+        self.contentView.addConstraint(PConstraint.paddingPositionConstraint(view: self.nameLabel, side: .top, padding: 30))
+        self.contentView.addConstraint(PConstraint.paddingPositionConstraint(view: self.nameLabel, side: .bottom, padding: 0))
+
+        self.contentView.addConstraint(PConstraint.horizontalSpacingConstraint(leftView: self.percentage, rightView: self.nameLabel, spacing: 20))
+        self.contentView.addConstraint(PConstraint.paddingPositionConstraint(view: self.percentage, side: .top, padding: 30))
+        self.contentView.addConstraint(PConstraint.paddingPositionConstraint(view: self.percentage, side: .bottom, padding: 0))
+
+
     }
     
 }

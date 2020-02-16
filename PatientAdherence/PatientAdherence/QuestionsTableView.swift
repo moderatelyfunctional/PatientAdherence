@@ -33,7 +33,7 @@ class QuestionsTableView: UITableView, UITableViewDataSource {
         var percentage:CGFloat = 0.0
         for (element, values) in FakeData.diabetesProgress {
             if element == self.data[indexPath.item] {
-                percentage = CGFloat(values.reduce(0, +)) / CGFloat(values.count)
+                percentage = 100 * CGFloat(values.reduce(0, +)) / CGFloat(values.count)
             }
         }
         
