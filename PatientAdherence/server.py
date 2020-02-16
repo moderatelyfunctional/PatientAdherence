@@ -1,5 +1,6 @@
 from flask import Flask
-import nltk, string
+from flask import request
+import nltk, string 
 from sklearn.feature_extraction.text import TfidfVectorizer
 nltk.download('punkt') # if necessary...
 import json
@@ -7,7 +8,7 @@ import json
 
 app = Flask(__name__)
 
-@app.route('/similarity')
+@app.route('/similarity', method = ["GET", "POST"])
 def sim_func():
     stemmer = nltk.stem.porter.PorterStemmer()
     remove_punctuation_map = dict((ord(char), None) for char in string.punctuation)
@@ -26,13 +27,14 @@ def sim_func():
         return ((tfidf * tfidf.T).A)[0,1]
 
 #user's text input will be the JSON output of the Houndify speech-to-text. The "ground truth" text input is coming from the condition-kb
-    case1 = str(cosine_sim('Diabetes refer to a group of diseases.', 'Diabetes mellitus refers to a group of diseases that affect how your body uses blood sugar (glucose). Glucose is vital to your health because its an important source of energy for the cells that make up your muscles and tissues. Its also your brains main source of fuel.'))
-    case1json = json.dumps({"Similarity of Answers":case1})  
+    case1 = str(cosine_sim(request.data, 'Diabetes mellitus refers to a group of diseases that affect how your body uses blood sugar (glucose). Glucose is vital to your health because its an important source of energy for the cells that make up your muscles and tissues. Its also your brains main source of fuel.'))
+    #case1 = str(cosine_sim('Diabetes refer to a group of diseases.', 'Diabetes mellitus refers to a group of diseases that affect how your body uses blood sugar (glucose). Glucose is vital to your health because its an important source of energy for the cells that make up your muscles and tissues. Its also your brains main source of fuel.'))
+    case1json = json.dumps({"Similarity of Answers":case1}) 
     return case1json
 
 if __name__ == "__main__":
     app.debug = True
-    app.run(host='0.0.0.0')
+    app.run(host="0.0.0.0",port=80)
 
 
 #Houndify sucks
