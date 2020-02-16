@@ -93,18 +93,19 @@ class PictureViewController: UIViewController {
     }
     
     @objc func switchToQuestions() {
+
         HTTPAPI.instance().call(url: URLS.diabetes, params: nil, method: .GET, success: { (data, response, err) in
             let stringData = String(data: data, encoding: .utf8)!
             self.processDiabetesData(stringData: stringData)
+            
+            DispatchQueue.main.async {
+                let questionsViewController = UINavigationController(rootViewController: QuestionsListViewController())
+                questionsViewController.modalPresentationStyle = .fullScreen
+                self.present(questionsViewController, animated: true, completion: nil)
+            }
         }) { (data, response, err) in
-            print("error")
         }
-
-        let questionsViewController = UINavigationController(rootViewController: QuestionsListViewController())
-        questionsViewController.modalPresentationStyle = .fullScreen
-        self.present(questionsViewController, animated: true, completion: nil)
     }
-
 }
 
 extension PictureViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {

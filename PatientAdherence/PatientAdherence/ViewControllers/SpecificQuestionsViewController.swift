@@ -26,7 +26,26 @@ class SpecificQuestionsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.specificTableView.delegate = self
         self.view.backgroundColor = UIColor.white
+        
+        self.view.addSubview(self.specificTableView)
+        addConstraints()
+    }
+    
+    func addConstraints() {
+        self.view.addConstraints(PConstraint.paddingPositionConstraints(view: self.specificTableView, sides: [.left, .top, .right], padding: 0))
+        self.view.addConstraint(PConstraint.paddingPositionConstraint(view: self.specificTableView, side: .bottom, padding: 30))
+    }
+}
+
+extension SpecificQuestionsViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let data = FakeData.diabetes[self.title!]![indexPath.row]
+        let questionViewController = QuestionViewController(question: data, key: self.title!, index: indexPath.row)
+        questionViewController.modalPresentationStyle = .fullScreen
+        self.present(questionViewController, animated: true, completion: nil)
     }
     
 }
