@@ -57,52 +57,10 @@ class PictureViewController: UIViewController {
         self.view.addConstraint(PConstraint.fillYConstraints(view: self.submitButton, heightRatio: 0.08))
     }
     
-    func processDiabetesData(stringData: String) {
-        var headers:[String] = []
-        var dataElements:[String: [String]] = [:]
-        var dataProgress:[String: [Int]] = [:]
-
-        let jsonData = stringData.components(separatedBy: "$")
-        for element in jsonData {
-            if element == "" {
-                continue
-            }
-            let elementPipe = element.components(separatedBy: "|")
-            let elementSubelement = elementPipe[0].components(separatedBy: "/")
-            
-            let key = elementSubelement[0].components(separatedBy: "_").joined(separator: " ").capitalized
-            print(key)
-            
-            if !headers.contains(key) {
-                headers.append(key)
-            }
-            if var _ = dataElements[key] {
-                dataElements[key]!.append(elementPipe[1])
-                dataProgress[key]!.append(0)
-            } else {
-                dataElements[key] = [elementPipe[1]]
-                dataProgress[key] = [0]
-            }
-            
-        }
-        FakeData.headers = headers
-        FakeData.diabetes = dataElements
-        FakeData.diabetesProgress = dataProgress
-    }
-    
     @objc func switchToQuestions() {
-
-        HTTPAPI.instance().call(url: URLS.diabetes, params: nil, method: .GET, success: { (data, response, err) in
-            let stringData = String(data: data, encoding: .utf8)!
-            self.processDiabetesData(stringData: stringData)
-            
-            DispatchQueue.main.async {
-                let questionsViewController = UINavigationController(rootViewController: QuestionsListViewController())
-                questionsViewController.modalPresentationStyle = .fullScreen
-                self.present(questionsViewController, animated: true, completion: nil)
-            }
-        }) { (data, response, err) in
-        }
+        let profileViewController = UINavigationController(rootViewController: ProfileViewController())
+        profileViewController.modalPresentationStyle = .fullScreen
+        self.present(profileViewController, animated: true, completion: nil)
     }
 }
 
