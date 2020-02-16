@@ -19,6 +19,8 @@ class QuestionCell: UITableViewCell {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.selectionStyle = .none
         
+        self.backgroundColor = UIColor.white
+        
         self.nameLabel.text = name
         if percentage < 40 {
             self.percentage.textColor = Colors.red
